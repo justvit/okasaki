@@ -1,2 +1,2 @@
 # okasaki
-Code related to Okasaki's "Purely functional data structures"
+Code inspired by Okasaki's "Purely functional data structures"
