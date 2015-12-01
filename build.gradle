@@ -4,11 +4,65 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.5
+ext {
+    JAVA_VERSION_REQUIRED = '1.8'
+}
+
+task validate {
+    def javaVer = System.getProperty('java.version')
+    if (!javaVer.startsWith(project.JAVA_VERSION_REQUIRED)) {
+        println "*** ERROR: Java v${project.JAVA_VERSION_REQUIRED} required ! (found Java ${javaVer})"
+        System.exit(1)
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = project.JAVA_VERSION_REQUIRED
+    targetCompatibility = project.JAVA_VERSION_REQUIRED
+}
+
+version = '1.0'
+
+
+/*
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest { attributes 'Main-Class': 'org.justvit.Ngram2gz',
+            'Implementation-Version': version,
+            'Implementation-Title': 'ngram2db' }
+}
+*/
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
+
+ext {
+    lombokVer = '1.14.8'
+    slf4jVer = '1.7.7'
+    log4jVer = '1.2.17'
+    guavaVer = '18.0'
+    springVer = '4.2.0.RELEASE'
+}
+
+dependencies {
+    compile 'org.apache.commons:commons-lang3:3.0'
+    compile 'commons-codec:commons-codec:1.8'
+    compile group: 'com.google.guava', name: 'guava', version: project.guavaVer
+//    compile 'org.apache.httpcomponents:httpclient:4.3.1'
+    compile 'commons-io:commons-io:2.4'
+//    compile 'commons-cli:commons-cli:1.2'
+//    compile 'org.springframework:spring-context:' + project.springVer
+//    compile group: 'org.projectlombok', name: 'lombok', version: project.lombokVer
+    compile group: 'org.slf4j', name: 'slf4j-api', version: project.slf4jVer
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: project.slf4jVer
+    compile group: 'log4j', name: 'log4j', version: project.log4jVer
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
