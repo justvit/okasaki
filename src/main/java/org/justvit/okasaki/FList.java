@@ -55,6 +55,7 @@ public class FList<T> implements IFList<T> {
         }
     }
 
+    @Override
     public int length() {
         return foldl(0, (T x, Integer k) -> k + 1);
     }
@@ -145,6 +146,16 @@ public class FList<T> implements IFList<T> {
     }
 
     @Override
+    public T get(int index) {
+        return null;
+    }
+
+    @Override
+    public IFList<T> set(int index, T newValue) {
+        return null;
+    }
+
+    @Override
     public FList<T> clone() {
         Node<T> newHead = null;
         Node<T> current = null;
@@ -204,18 +215,6 @@ public class FList<T> implements IFList<T> {
     @Override
     public Iterator<T> iterator() {
         return new FListIterator(this.head);
-    }
-
-    @Override
-    public void forEach(Consumer<? super T> action) {
-        for (Node<T> p = this.head; p != null; p = p.next) {
-            action.accept(p.payload);
-        }
-    }
-
-    @Override
-    public Spliterator<T> spliterator() {
-        return null;
     }
 
     private static class Node<T> {

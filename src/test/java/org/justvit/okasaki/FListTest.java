@@ -101,7 +101,7 @@ public class FListTest {
         FList<String> words = new FList<>("one", "for", "the", "money", "two", "for", "the", "show",
                 "three", "to", "get", "ready", "now", "go", "cat", "go");
 
-        IFList<String> splitted = list.flatMap((String s) -> new FList<String>(s.split(" ")));
+        IFList<String> splitted = list.flatMap((String s) -> new FList<>(s.split(" ")));
         assertEquals(splitted, words);
 
     }
@@ -120,6 +120,24 @@ public class FListTest {
 
     @Test
     public void testClone() throws Exception {
-
+        FList<String> list = new FList<>("a", "b", "c", "d", "e");
+        FList<String> copy = list.clone();
+        assertEquals(list, copy);
     }
+
+    @Test
+    public void testClone1() throws Exception {
+        FList<String> list = new FList<>("a");
+        FList<String> copy = list.clone();
+        assertEquals(list, copy);
+    }
+
+@Test
+    public void testClone0() throws Exception {
+        FList<String> list = new FList<>();
+        FList<String> copy = list.clone();
+        assertEquals(list, copy);
+    }
+
+
 }
