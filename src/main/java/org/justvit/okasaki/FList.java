@@ -67,10 +67,10 @@ public class FList<T> implements IFList<T> {
         for (Node<T> t = this.head; t != null; t = t.next) {
             if (predicate.test(t.payload)) {
                 Node<T> newNode = new Node<>(t.payload);
-                if (current == null) {
-                    newHead = newNode;
-                } else {
+                if (current != null) {
                     current.next = newNode;
+                } else {
+                  newHead = newNode;
                 }
                 current = newNode;
             }
@@ -204,7 +204,7 @@ public class FList<T> implements IFList<T> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Node<T> p = this.head; p != null; p = p.next) {
-            if (sb.length() != 0) {
+            if (sb.length() > 0) {
                 sb.append(", ");
             }
             sb.append(Objects.toString(p.payload));
@@ -215,6 +215,13 @@ public class FList<T> implements IFList<T> {
     @Override
     public Iterator<T> iterator() {
         return new FListIterator(this.head);
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        for (Node<T> p = this.head; p != null; p = p.next) {
+            action.accept(p.payload);
+        }
     }
 
     private static class Node<T> {

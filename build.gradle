@@ -26,14 +26,13 @@ tasks.withType(JavaCompile) {
 version = '1.0'
 
 
-/*
+
 jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    manifest { attributes 'Main-Class': 'org.justvit.Ngram2gz',
+    manifest { attributes 'Main-Class': 'org.justvit.OkasakiRunner',
             'Implementation-Version': version,
-            'Implementation-Title': 'ngram2db' }
+            'Implementation-Title': 'Okasaki' }
 }
-*/
 
 repositories {
     mavenCentral()

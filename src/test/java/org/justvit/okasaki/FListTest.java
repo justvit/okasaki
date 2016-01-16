@@ -36,8 +36,10 @@ public class FListTest {
     @Test
     public void testTail() throws Exception {
         FList<String> list = new FList<>("a", "b", "c", "d", "e");
-        FList<String> tailList = new FList<>("b", "c", "d", "e");
-        assertEquals(list.tail(), tailList);
+        FList<String> tailedEtalon = new FList<>("b", "c", "d", "e");
+        FList<String> tailed = list.tail();
+        assertEquals(tailed, tailedEtalon);
+        assertTrue(tailed != list);
     }
 
     @Test
@@ -45,6 +47,7 @@ public class FListTest {
         FList<String> list = new FList<>("abc");
         FList<String> tailList = new FList<>();
         assertEquals(list.tail(), FList.EMPTY);
+        //TODO
     }
 
     @Test
